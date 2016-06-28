@@ -1,0 +1,4 @@
+web/smarty/templates_c
+web/smarty/cache
+config/config_vars.php
+web/smarty/templates/frontend_tracking.tpl

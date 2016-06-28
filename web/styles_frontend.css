@@ -1,0 +1,152 @@
+.dt-body-right {text-align: right;}
+.dt-body-center {text-align: center;}
+.tableBorder {border:1px solid #ccc; font-size: 100%;}
+
+.container-fluid {max-width: 1170px;}
+
+html {
+    font-size: 12px;
+    line-height: 1.5;
+    }
+    
+@media (min-width: 980px){
+	html {font-size: 16px;}
+}
+body {
+    font-family: "proxima-nova",sans-serif;
+    font-size: 16px;
+    }
+header {
+	display: block;
+	width: 100%;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    background-color: #cecac2;
+    }
+header h1 {
+    color: #fff;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 3rem;
+    border-bottom: 0 none;
+    }
+header h4 {
+    color: #000;
+}
+
+h1, h2, h3 {
+	font-weight: 700;
+}
+
+a, a:hover, .glyphicon {
+	color: #a5132b;
+}
+
+strong {font-weight: 700;}
+
+.content {
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+}
+
+.velg-aar {
+	padding-top: 0.5rem;
+}
+
+.scroll-container {
+	box-sizing: border-box;
+	width: 100%;
+	max-width: 1210px;
+	margin:0 auto;
+	padding:0;
+	overflow-x: auto;
+	overflow-y: hidden;
+}
+
+#curve_chart {
+	width: 1200px;
+	height: 265px;
+	margin:3rem auto 0;
+}
+
+@media (max-width: 1024px) {
+	.scroll-container {
+		box-shadow: inset 0 2px 2px rgba(0, 0, 0, 0.1);
+	}
+	#curve_chart {
+		margin-top: 1.5rem;
+	}
+	.scroll-container:before {
+		display: inline-block;
+		content:'sveip >';
+		white-space: nowrap;
+		position: absolute;
+		margin-top: 10px;
+		margin-left: 50%;
+		margin-right: 50%;
+		color: #ddd;
+		padding: 0.2rem 0.5rem;
+		font-size: 12px;
+		line-height: 1;
+		font-weight: bold;
+		z-index: 100;
+		letter-spacing: 0.5px;
+	}
+}
+
+.graph-selector {
+	margin: 1rem auto;
+	font-weight: 700;
+}
+
+.graph-selector .btn {
+	background: #f2f0ed;
+	border-color :#fff;
+	text-shadow: 0 0 0 #fff;
+	box-shadow: 0 1px 0 rgba(255, 255, 255, 0) inset, 0 1px 1px rgba(0, 0, 0, 0);
+}
+
+.graph-selector .btn:hover {
+	background: #edeae5;
+}
+
+.table-selector {
+	margin: 5rem auto 0.1rem;
+	padding: 1.2rem 0.5rem 0.6rem;
+	background: #f2f0ed;
+	border-top: 5px solid #b1aaa0;
+}
+
+.table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+    border-top: 1px solid #eee;
+}
+
+.table > thead > tr > th {
+    font-family: proxima-nova-condensed;
+    line-height: 1.2;
+    text-align: left;
+    vertical-align: top;
+}
+
+table > tbody > tr > td {
+    border-top: #eee;
+}
+
+.table-single {
+	margin-top: 5rem;
+}
+
+.table-single thead {
+	border-top: 5px solid #b1aaa0;
+}
+
+.center {text-align: center;}
+
+footer {
+	margin-top: 2rem;
+	background: #edeae5;
+	padding: 1.5rem 0;
+	font-size: 90%;
+}
+
+footer a {color :#7b715e;}
