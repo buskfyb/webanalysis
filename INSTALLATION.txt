@@ -1,0 +1,56 @@
+
+INSTALLATION
+
+*PHP*
+The application is developed and tested for php5.6 and php7.0
+The application uses the libraries mysqli and curl
+
+*Smarty - template engine*
+The template library Smarty (http://smarty.net) is used. Version 3.0+
+This library must be installed and be in available in the include_path
+
+*Config*
+The file config/config_vars_sample.php must be copied into config/config_vars.php
+Then all variables must be filled out
+
+*Javascript libraries*
+These javascript libraries are loaded from CDN, and need not be installed locally:
+jQuery (https://jquery.com/)
+datatables (https://datatables.net/)
+Google Charts (https://developers.google.com/chart/)
+Bootstrap (http://getbootstrap.com/)
+
+*Font*
+The font is fetched from TypeKit where there is a valid subscription for the domain norskbibliotekindeks.no
+
+*Webserver*
+The document root should point to the folder "web"
+the folder "config" should be available in the open_basedir
+
+*Administration*
+Administration of users and libraries is available in the folder /adminlibs/
+When database is created, a superadmin user is created:
+username: developadmin
+password: 12341234
+
+You should create new users and delete this user.
+
+superadmin users can create and modify users, and admin users can create and modify libraries.
+
+*Database*
+Create the tables in the database by running the SQL in the file sql/structure.sql
+This will create all tables, and the admin user.
+
+Exampledata:
+Exampledata can be loaded into the application with the files
+sql/libraries.sql
+sql/traffic.sql
+
+*Cron*
+The data from Piwik is fetched by the script /bin/import.php
+
+Upon installation run this command to fetch all old data: php import.all
+This will fetch all data since the start-year defined in the config file (config/config_vars.php)
+
+After installation the script should run daily with no arguments. Like this: bin/import.php
+
