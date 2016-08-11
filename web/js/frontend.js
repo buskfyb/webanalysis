@@ -84,7 +84,10 @@ function drawChart(title, data) {
         data[i] = tmp;
     }
 
+    var hAxisNumber = data.length / 2; // set number of gridlines on hAxis. PMB 11-07-2016
+
     var data = google.visualization.arrayToDataTable(data);
+
 
     var options = {
       title: title,
@@ -96,7 +99,7 @@ function drawChart(title, data) {
       lineWidth: 3.5,
       colors: ['#A5132B', '#612172', '#DCDC3E',
              '#DA8A1C', '#4151A3', '#703593', '#981B48'],
-      hAxis: {gridlines: {count: 12}, format: 'decimal'}
+      hAxis: {gridlines: {count: hAxisNumber}}
     };
 
     var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
