@@ -1,7 +1,7 @@
 <?php
 
 // include the config file of the web application to get the database and the URL to piwik 28-05-2016 PMB
-require_once('../config/config.php');
+require_once(dirname(__FILE__) . '/../config/config.php');
 
 
 function recordExists($siteid, $period, $year, $period_type) {
