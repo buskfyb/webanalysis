@@ -177,8 +177,8 @@ function updateTotalTraffic($thedate, $period_type) {
     // get total data for the period
     if (!$stmt = mysqli_prepare($dblink, "SELECT SUM(visitors) as totalvisitors, SUM(pageviews) as totalpageviews, 
     SUM(visits) as totalvisits, CAST(AVG(visit_time) AS UNSIGNED) as total_visit_time, CAST(AVG(bounce_rate) AS UNSIGNED)
-    as total_bonuce_rate FROM `traffic` WHERE year = ? AND period = ? AND period_type = ?")) {echo mysqli_error($dblink);exit();}    
-    if (!mysqli_stmt_bind_param($stmt, "dds", $year, $period, $period_type)) {echo mysqli_error($dblink);exit();}
+    as total_bonuce_rate FROM `traffic` WHERE year = ? AND period = ? AND period_type = ? AND  siteid != ?")) {echo mysqli_error($dblink);exit();}    
+    if (!mysqli_stmt_bind_param($stmt, "ddsd", $year, $period, $period_type, $total_id)) {echo mysqli_error($dblink);exit();}
     if (!mysqli_stmt_execute($stmt)) {echo mysqli_error($dblink);exit();}        
     if (!mysqli_stmt_bind_result($stmt, $totalvisitors, $totalpageviews, $totalvisits, $total_visit_time, $total_bounce_rate)) {echo mysqli_error($dblink);exit();} 
     mysqli_stmt_fetch($stmt);   
