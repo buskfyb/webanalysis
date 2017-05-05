@@ -87,9 +87,21 @@ function getData($siteid,$today,$period_type) {
     curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
     // make curl return data instead of printing 28-05-2016 PMB
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    // do not check the cert 01-05-2017 PMB
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+
     // get data 28-05-2016 PMB
     $retData = curl_exec($ch);
      // Close the cURL resource, and free system resources 28-05-2016 PMB
+
+     // check for any curl errors and print them if there are any. and exit 01-05-2017 PMB
+    if($errno = curl_errno($ch)) {
+        $error_message = curl_strerror($errno);
+        echo "cURL error ({$errno}):\n {$error_message}";
+        exit();
+    }
+
+    // close the curl connection 01-05-2017 PMB
     curl_close($ch);
 
     return $retData;   
