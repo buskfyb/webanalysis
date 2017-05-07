@@ -1,0 +1,1 @@
+ALTER TABLE `libraries` ADD `category` INT NOT NULL DEFAULT '0' AFTER `URL`;

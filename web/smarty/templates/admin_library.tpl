@@ -21,6 +21,18 @@
         <td>URL:</td><td><input type="text" id="URL" name="URL" value="{$URL}">  <span class="redMsg" id="URL_error"></span></td>
     </tr>
     <tr>
+        <td>Kategori:</td><td>
+            <select name="category">
+            <option value="0">Velg bibliotek</option>
+            <option value="0">--------------</option>
+            {foreach from=$categories item=c}
+                <option value="{$c.id}" {if $c.id == $category}selected{/if}>{$c.name}</option>
+                {/foreach}
+            </select>
+        </td>
+    </tr>
+
+    <tr>
         <td></td><td><input type="button" onclick="validateForm()" value="Lagre"> <span class="redMsg">{$savemsg}</span></td>
     </tr>            
 </table>

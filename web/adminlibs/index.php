@@ -59,15 +59,17 @@ switch ($do) {
         $siteid = $_POST['siteid'];
         $population = $_POST['population'];
         $URL = $_POST['URL'];
-        dbInsertLibrary($libraryname, $siteid, $population, $URL);
+        $category = $_POST['category'];
+        dbInsertLibrary($libraryname, $siteid, $population, $URL, $category);
         break;
     case 'dbUpdateLibrary':
         $libraryname = $_POST['libraryname'];
         $siteid = $_POST['siteid'];
         $population = $_POST['population'];
         $URL = $_POST['URL'];
+        $category = $_POST['category'];
         $id = $_POST['id'];
-        dbUpdateLibrary($libraryname, $siteid, $population, $URL, $id);
+        dbUpdateLibrary($libraryname, $siteid, $population, $URL, $category, $id);
         break;
     case 'deleteLibrary':
         $id = $_REQUEST['id'];
