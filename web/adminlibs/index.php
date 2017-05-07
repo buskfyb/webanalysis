@@ -27,6 +27,9 @@ $smarty->assign('adminrole', $_SESSION['role']);
 $smarty->assign('loggedinID', $_SESSION['id']);
 $smarty->assign('loggedinUsername', $_SESSION['username']);
 
+// global var to show if we are in dev mode or not PMB 2017-05-05
+$smarty->assign('development', $development);
+
 
 // switching for all legal actions 28-05-2016 PMB
 switch ($do) {

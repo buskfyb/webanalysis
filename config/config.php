@@ -12,9 +12,6 @@ require_once('config_vars.php');
 // 28-05-2016 PMB
 require_once('Smarty.class.php');
 
-// change to the rootdir of your application. Will be the same as the documentroot in your vhost 28-05-2016 PMB
-$rootdir = '/var/www/sites/bfk/web';
-
 
 // smarty template engine is instanstiated.  28-05-2016 PMB
 $smarty = new Smarty(); // global object used by both frontend and backend 28-05-2016 PMB

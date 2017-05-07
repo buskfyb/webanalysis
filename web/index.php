@@ -28,6 +28,10 @@ $smarty->assign('currentYear', $year);
 $smarty->assign('thisYear', date('Y')); // the year it ended (for now) PMB 14-06-2016
 
 
+// global var to show if we are in dev mode or not PMB 2017-05-05
+$smarty->assign('development', $development);
+
+
 // If libid is set, we are dealing with a single library PMB 08-06-2016
 if (isset($_REQUEST['libid'])) {
     $libData = getSingleData($_REQUEST['libid'], $period_type, $year);

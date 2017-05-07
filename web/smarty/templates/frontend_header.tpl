@@ -75,7 +75,7 @@ var period = {$period};
     {* outer container *}    
 <header>
     <div class="container-fluid">
- 		<h1><span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Norsk bibliotekindeks</h1>
+ 		<h1><span class="glyphicon glyphicon-stats" aria-hidden="true"></span>  {if $development == 1}DEVELOPMENT - {/if}Norsk bibliotekindeks</h1>
  		<h4>– Nettsidestatistikk fra norske bibliotek</h4>   
     </div>
 </header>
