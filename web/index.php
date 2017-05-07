@@ -31,6 +31,14 @@ $smarty->assign('thisYear', date('Y')); // the year it ended (for now) PMB 14-06
 // global var to show if we are in dev mode or not PMB 2017-05-05
 $smarty->assign('development', $development);
 
+// set up tracking if the tracking file exists PMB 2017-05-07
+$tracking = 0;
+if( $smarty->templateExists('frontend_tracking.tpl') ){
+    $tracking = 1;
+}
+$smarty->assign('tracking', $tracking);
+
+
 
 // If libid is set, we are dealing with a single library PMB 08-06-2016
 if (isset($_REQUEST['libid'])) {

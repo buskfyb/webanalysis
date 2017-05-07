@@ -67,7 +67,9 @@ var period = {$period};
 
 </script>
 
+{if $tracking == 1}
 {include file="frontend_tracking.tpl"}
+{/if}
 
 </head>
 
