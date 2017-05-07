@@ -11,6 +11,7 @@
             <th>Piwik id</th>
             <th>Befolkning</th>
             <th>URL</th>
+            <th>Kategori</th>
             <th></th>
             <th></th>
         </tr>
@@ -22,6 +23,7 @@
     <td>{$l.siteid}</td>
     <td>{$l.population}</td>
     <td>{$l.URL}</td>
+    <td>{$l.categoryname}</td>
     <td><a href="/adminlibs/index.php?do=editLibrary&id={$l.id}">Rediger</a></td>
     <td><a href="/adminlibs/index.php?do=deleteLibrary&id={$l.id}">Slett</a></td>
    </tr>
@@ -38,6 +40,7 @@ $('#libraryTable').DataTable( {
     paging: false,
     "info": false,
     "columns": [
+        null,
         null,
         null,
         null,

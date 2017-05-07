@@ -11,7 +11,12 @@ function showFront() {
     global $dblink;
     
     // first we need to get all libraries 28-05-2016 PMB
-    if (!$result = mysqli_query($dblink, "SELECT id, libraryname, siteid, population, URL FROM libraries")) {
+    if (!$result = mysqli_query($dblink, "SELECT l.id, l.libraryname, l.siteid, l.population, 
+        l.category, l.URL, c.name as categoryname 
+        FROM libraries l 
+        left join categories c on l.category = c.id
+        order by l.libraryname ASC"
+        )) {
         echo mysqli_error($dblink);
         exit();
     }
