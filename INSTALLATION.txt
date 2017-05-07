@@ -54,3 +54,7 @@ This will fetch all data since the start-year defined in the config file (config
 
 After installation the script should run daily with no arguments. Like this: bin/import.php
 
+*Tracking*
+If you want tracking of the frontend traffic to Piwik or whatever you use,
+then you can include the tracking code in a file called frontend_tracking.tpl
+in the smarty directory.
