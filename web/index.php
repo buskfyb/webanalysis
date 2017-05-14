@@ -8,6 +8,7 @@ require_once('libs/functions.php');
 $period = date('W')-1;
 $period_type = 'week';
 $year = date('Y');
+$category = 0;
 
 // If we have any values for these variables, set them 28-05-2016 PMB
 if (isset($_REQUEST['period'])) {
@@ -19,6 +20,10 @@ if (isset($_REQUEST['period_type'])) {
 if (isset($_REQUEST['year'])) {
     $year = $_REQUEST['year'];    
 }
+if (isset($_REQUEST['category'])) {
+    $category = $_REQUEST['category'];    
+}
+
 
 // assigning an array with month names to be used in display PMB 14-06-2016
 $smarty->assign('monthNames', $monthNames);
@@ -56,7 +61,10 @@ if (isset($_REQUEST['libid'])) {
     $smarty->display('frontend_single.tpl');          
 }
 else {   // else we are dealing with the front page
-    $libData = getData($period, $period_type, $year);
+    $libData = getData($period, $period_type, $year, $category);
+
+    $smarty->assign('categories', getCategories());
+    $smarty->assign('category', $category);
 
     $smarty->assign('start_site_id', $total_id);
     $smarty->assign('start_site_name', 'Total');

@@ -2,6 +2,8 @@
 
 // variables that will be different between installations are header_register_callback 28-05-2016 PMB
 
+date_default_timezone_set('Europe/Oslo'); 
+
 // URL to the piwik instance 28-05-2016 PMB
 $piwikURL = '';
 

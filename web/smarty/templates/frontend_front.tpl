@@ -9,6 +9,17 @@
 </select>
 </div>
 
+<div class="velg-aar">
+<span class="glyphicon glyphicon-stats" aria-hidden="true"></span> <strong>Velg kategori:</strong>
+<select name="category" id="category" onchange="loadData('category')">
+<option value="0">Alle bibliotek</option>
+{foreach from=$categories item=c}
+ <option value="{$c.id}" {if $category == $c.id}SELECTED{/if}>{$c.name}</option>
+{/foreach}
+</select>
+</div>
+
+
 <div class="center">
 <nav class="btn-group graph-selector" aria-label="velg-graf">
 <a href="javascript:setField('average')" class="btn btn-default" role="button">Besøk per 1000</a>

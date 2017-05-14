@@ -111,7 +111,7 @@ function getData($siteid,$today,$period_type) {
 function getAllLibs() {
     global $dblink;
     global $total_id; // the id that is used for the total traffic for all sites
-    if (!$result = mysqli_query($dblink, "SELECT id, libraryname, siteid FROM libraries WHERE id != " . $total_id)) {echo mysqli_error($dblink);exit();}    
+    if (!$result = mysqli_query($dblink, "SELECT id, libraryname, siteid FROM libraries WHERE siteid != 0 AND id != " . $total_id)) {echo mysqli_error($dblink);exit();}    
     $retArray = mysqli_fetch_all($result);
 
     return $retArray;    

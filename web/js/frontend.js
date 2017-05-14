@@ -44,12 +44,13 @@ function loadData(selectType) {
   }
 
   year = jQuery('#year').val();
-
+  category = jQuery('#category').val();
+console.log("cat: " + category);
   // do some checking to find values
   var currentPeriod = GetQueryStringByParameter('period');
 //  alert(period);
 
-  URL = "?period=" + period + "&year=" + year + "&period_type=" + period_type;
+  URL = "?period=" + period + "&year=" + year + "&period_type=" + period_type + "&category=" + category;
   document.location = URL;
 }
 

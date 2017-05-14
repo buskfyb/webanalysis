@@ -1,23 +1,41 @@
 <?php
 
 // returns data for all libraries for a given period 28-05-2016 PMB
-function getData($period, $period_type, $year) {
+function getData($period, $period_type, $year, $category) {
     // smarty and dblink are global objects 28-05-2016 PMB
     global $smarty;
     global $dblink;
     
 
+
     // we get all data for all libraries 28-05-2016 PMB
-    if (!$stmt = mysqli_prepare($dblink, "SELECT l.libraryname, l.siteid, l.population, t.visits, 
-        t.visitors, t.pageviews, t.visit_time, t.bounce_rate, CAST((t.visits/l.population*1000) as UNSIGNED) as visits_per_pop, change_percent, (t.pageviews/t.visits) AS pages_per_visit, l.URL FROM libraries l join traffic t on l.siteid = t.siteid WHERE 
-        period_type = ? AND period = ? AND year = ? ORDER BY t.visitors DESC")) {
-        echo mysqli_error($dblink);
-        exit();
+
+
+    if ($category == 0) {
+        if (!$stmt = mysqli_prepare($dblink, "SELECT l.libraryname, l.siteid, l.population, t.visits, 
+            t.visitors, t.pageviews, t.visit_time, t.bounce_rate, CAST((t.visits/l.population*1000) as UNSIGNED) as visits_per_pop, change_percent, (t.pageviews/t.visits) AS pages_per_visit, l.URL FROM libraries l join traffic t on l.siteid = t.siteid WHERE 
+            period_type = ? AND period = ? AND year = ? ORDER BY t.visitors DESC")) {
+            echo mysqli_error($dblink);
+            exit();
+        }
+
+        if (!mysqli_stmt_bind_param($stmt, "sdd", $period_type, $period, $year)) {echo mysqli_error($dblink);exit();}
+        if (!mysqli_stmt_execute($stmt)) {echo mysqli_error($dblink);exit();}        
+        $result = mysqli_stmt_get_result($stmt);
+    }
+    else {
+        if (!$stmt = mysqli_prepare($dblink, "SELECT l.libraryname, l.siteid, l.population, t.visits, 
+            t.visitors, t.pageviews, t.visit_time, t.bounce_rate, CAST((t.visits/l.population*1000) as UNSIGNED) as visits_per_pop, change_percent, (t.pageviews/t.visits) AS pages_per_visit, l.URL FROM libraries l join traffic t on l.siteid = t.siteid WHERE 
+            period_type = ? AND period = ? AND year = ? AND category = ? ORDER BY t.visitors DESC")) {
+            echo mysqli_error($dblink);
+            exit();
+        }
+
+        if (!mysqli_stmt_bind_param($stmt, "sddd", $period_type, $period, $year, $category)) {echo mysqli_error($dblink);exit();}
+        if (!mysqli_stmt_execute($stmt)) {echo mysqli_error($dblink);exit();}        
+        $result = mysqli_stmt_get_result($stmt);        
     }
 
-    if (!mysqli_stmt_bind_param($stmt, "sdd", $period_type, $period, $year)) {echo mysqli_error($dblink);exit();}
-    if (!mysqli_stmt_execute($stmt)) {echo mysqli_error($dblink);exit();}        
-    $result = mysqli_stmt_get_result($stmt);
 
     $retResult = array();
     
@@ -115,6 +133,22 @@ function getDataYear($siteid, $year, $period_type, $field) {
     return $retResult;    
 }
 
+
+function getCategories() {
+    // smarty is global object 28-05-2016 PMB
+    global $smarty;
+    global $dblink;
+    
+    // get all categories and return them as an array PMB 2017-05-07
+    if (!$result = mysqli_query($dblink, "SELECT id, name FROM categories")) {
+        echo mysqli_error($dblink);
+        exit();
+    }
+
+    $categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+    return $categories;
+}
 
 
 
