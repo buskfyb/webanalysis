@@ -23,8 +23,6 @@
     <tr>
         <td>Kategori:</td><td>
             <select name="category">
-            <option value="0">Velg kategori</option>
-            <option value="0">--------------</option>
             {foreach from=$categories item=c}
                 <option value="{$c.id}" {if $c.id == $category}selected{/if}>{$c.name}</option>
                 {/foreach}
