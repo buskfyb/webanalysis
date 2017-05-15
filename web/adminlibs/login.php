@@ -70,7 +70,7 @@ if (isset($_REQUEST['username'])) {
                 $smarty->assign('msg', 'Passordet er nå sendt på epost til den registrerte adressen.');
             }
             else { // no user with this username ... hackers probing? PMB 16-06-2016
-                
+                           $smarty->assign('msg', 'Noe er galt. Trolig feil brukernavn.');
             }
     }
 
