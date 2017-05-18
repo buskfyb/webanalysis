@@ -5,8 +5,7 @@ function getData($period, $period_type, $year, $category) {
     // smarty and dblink are global objects 28-05-2016 PMB
     global $smarty;
     global $dblink;
-    
-
+    global $total_id;
 
     // we get all data for all libraries 28-05-2016 PMB
 
@@ -23,10 +22,10 @@ function getData($period, $period_type, $year, $category) {
         if (!mysqli_stmt_execute($stmt)) {echo mysqli_error($dblink);exit();}        
         $result = mysqli_stmt_get_result($stmt);
     }
-    else {
+    else {echo $total_id;
         if (!$stmt = mysqli_prepare($dblink, "SELECT l.libraryname, l.siteid, l.population, t.visits, 
-            t.visitors, t.pageviews, t.visit_time, t.bounce_rate, CAST((t.visits/l.population*1000) as UNSIGNED) as visits_per_pop, change_percent, (t.pageviews/t.visits) AS pages_per_visit, l.URL FROM libraries l join traffic t on l.siteid = t.siteid WHERE 
-            period_type = ? AND period = ? AND year = ? AND category = ? ORDER BY t.visitors DESC")) {
+            t.visitors, t.pageviews, t.visit_time, t.bounce_rate, CAST((t.visits/l.population*1000) as UNSIGNED) as visits_per_pop, change_percent, (t.pageviews/t.visits) AS pages_per_visit, l.URL FROM libraries l left join traffic t on l.siteid = t.siteid WHERE 
+            (period_type = ? AND period = ? AND year = ?) AND (category = ? OR l.siteid = " . $total_id . ")  ORDER BY t.visitors DESC")) {
             echo mysqli_error($dblink);
             exit();
         }
