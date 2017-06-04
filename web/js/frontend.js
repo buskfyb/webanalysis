@@ -22,7 +22,7 @@ function setPeriod_type(value) {
 
 // funtions to set the value of global variables and update the graph afterwards PMB 07-06-2016
 function setField(value) {
-    field = value;
+    field = value; // field is a global variable PMB 2017-06-04
     getYearData();
 }
 
@@ -134,6 +134,19 @@ function changeYearSingle(libid, libname) {
     document.location = URL;
 }
 
+
+function printStatistics() {
+    var siteids = '';
+    var count = 0; // to keep track if this is the first site
+    for(var i = 0; i < sitesInGraph.length; i++) {
+        if (count != 0) {siteids += ',';}
+        siteids += sitesInGraph[i].siteid;
+        count++;
+    }
+    console.log(siteids);
+}
+
+
 // returns all visits for a given site
 function getYearData() {
     var URL = "serveData.php";
@@ -147,7 +160,7 @@ function getYearData() {
         siteids += sitesInGraph[i].siteid;
         count++;
     }
-
+    // field is a global variable PMB 2017-06-04
     var params = "siteids=" + siteids + "&year=" + year + "&period_type=" + period_type + "&field=" + field;
 
     if (field == 'average') {fieldText = 'Besøk per 1000 per uke';}

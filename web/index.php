@@ -8,7 +8,7 @@ require_once('libs/functions.php');
 $period = date('W')-1;
 $period_type = 'week';
 $year = date('Y');
-$category = 0;
+$category = 0; // setting default category to 0 means showing all libraries PMB 2017-06-04
 
 // If we have any values for these variables, set them 28-05-2016 PMB
 if (isset($_REQUEST['period'])) {
@@ -23,6 +23,7 @@ if (isset($_REQUEST['year'])) {
 if (isset($_REQUEST['category'])) {
     $category = $_REQUEST['category'];    
 }
+
 
 
 // assigning an array with month names to be used in display PMB 14-06-2016

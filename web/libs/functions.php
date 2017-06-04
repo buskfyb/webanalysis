@@ -24,20 +24,27 @@ function getData($period, $period_type, $year, $category) {
     }
     else {
         if (!$stmt = mysqli_prepare($dblink, "SELECT l.libraryname, l.siteid, l.population, t.visits, 
-            t.visitors, t.pageviews, t.visit_time, t.bounce_rate, CAST((t.visits/l.population*1000) as UNSIGNED) as visits_per_pop, change_percent, (t.pageviews/t.visits) AS pages_per_visit, l.URL FROM libraries l left join traffic t on l.siteid = t.siteid WHERE 
-            (period_type = ? AND period = ? AND year = ?) AND (category = ? OR l.siteid = " . $total_id . ")  ORDER BY t.visitors DESC")) {
+            t.visitors, t.pageviews, t.visit_time, t.bounce_rate, CAST((t.visits/l.population*1000) as UNSIGNED) as visits_per_pop, change_percent, (t.pageviews/t.visits) AS pages_per_visit, l.URL 
+            FROM libraries l 
+            left join traffic t on l.siteid = t.siteid 
+            WHERE (
+                period_type = ? AND 
+                period = ? AND 
+                year = ?
+                ) AND (
+                l.category = ? OR l.siteid = " . $total_id . ")  
+                ORDER BY t.visitors DESC")) {
             echo mysqli_error($dblink);
             exit();
         }
 
         if (!mysqli_stmt_bind_param($stmt, "sddd", $period_type, $period, $year, $category)) {echo mysqli_error($dblink);exit();}
-        if (!mysqli_stmt_execute($stmt)) {echo mysqli_error($dblink);exit();}        
-        $result = mysqli_stmt_get_result($stmt);        
+        if (!mysqli_stmt_execute($stmt)) {echo mysqli_error($dblink);exit();}
+        $result = mysqli_stmt_get_result($stmt);      
     }
 
-
     $retResult = array();
-    
+
     // all data is fetched as a associative array 28-05-2016 PMB
     $retResult = mysqli_fetch_all($result, MYSQLI_BOTH);
 

@@ -61,7 +61,7 @@ var start_site_name = '{$start_site_name}';
 // global variables
 var period_type = '{$period_type}';
 var year = {$currentYear};
-var field = 'average';
+var field = 'average'; // field is a global variable PMB 2017-06-04
 var sitesInGraph = []; // holder of siteids
 var period = {$period};
 
