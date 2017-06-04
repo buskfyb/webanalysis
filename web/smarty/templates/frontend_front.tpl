@@ -100,6 +100,9 @@ Uke:
 {/foreach}
 </tbody>
 </table>
+
+<a href="javascript:printStatistics()">Statistikk</a>
+
 </div>
 {literal}
 <script>

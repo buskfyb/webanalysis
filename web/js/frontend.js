@@ -143,7 +143,7 @@ function printStatistics() {
         siteids += sitesInGraph[i].siteid;
         count++;
     }
-    console.log(siteids);
+    document.location = 'serveStatistics.php?siteids=' + siteids;
 }
 
 
