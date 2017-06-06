@@ -101,9 +101,12 @@ Uke:
 </tbody>
 </table>
 
-<a href="javascript:printStatistics()">Statistikk</a>
 
 </div>
+
+<p>Eksporter til CSV: <a href="javascript:printStatistics('selected')">Valgte</a> | <a href="javascript:printStatistics('all')">Alle</a></p>
+
+
 {literal}
 <script>
 $(document).ready( function () {

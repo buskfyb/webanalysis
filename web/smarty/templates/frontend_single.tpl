@@ -73,6 +73,8 @@
 </table>
 </div>
 
+<p><a href="javascript:printStatistics('selected')">Eksporter til CSV</a> </p>
+
 {literal}
 <script>
 $(document).ready( function () {

@@ -51,9 +51,21 @@ function getData($period, $period_type, $year, $category) {
     return $retResult;
 }
 
+// returns all site ids of all libraries
+function getAllIds() {
+     global $dblink;
+     $result = mysqli_query($dblink, "SELECT siteid FROM libraries");
+     $res = mysqli_fetch_all($result, MYSQLI_NUM);
+     $allids = array();
+     foreach ($res as $r) {
+         array_push($allids, $r[0]);
+     }
+     return $allids;
+}
+
 
 // returns all data for a given year for a given library 08-06-2016 PMB
-function getSingleData($siteid, $period_type, $year) {
+function getSingleData($siteid, $period_type, $year, $resulttype=MYSQL_BOTH) {
     // smarty and dblink are global objects 28-05-2016 PMB
     global $smarty;
     global $dblink;
@@ -72,7 +84,7 @@ function getSingleData($siteid, $period_type, $year) {
 
     // we get all data for this 28-05-2016 PMB
     if (!$stmt = mysqli_prepare($dblink, "SELECT l.libraryname, l.siteid, l.population, t.visits, t.period,
-        t.visitors, t.pageviews, t.visit_time, t.bounce_rate, CAST((t.visits/l.population*1000) as UNSIGNED) as visits_per_pop, change_percent, (t.pageviews/t.visits) AS pages_per_visit FROM libraries l join traffic t on l.siteid = t.siteid WHERE 
+        t.visitors, t.pageviews, t.visit_time, t.bounce_rate, CAST((t.visits/l.population*1000) as UNSIGNED) as visits_per_pop, change_percent, (t.pageviews/t.visits) AS pages_per_visit, l.category FROM libraries l join traffic t on l.siteid = t.siteid WHERE 
         period_type = ? AND t.siteid = ? AND year = ? AND period <= ? ORDER BY t.period DESC")) {
         echo mysqli_error($dblink);
         exit();
@@ -85,7 +97,7 @@ function getSingleData($siteid, $period_type, $year) {
     $retResult = array();
     
     // all data is fetched as a associative array 28-05-2016 PMB
-    $retResult = mysqli_fetch_all($result, MYSQLI_BOTH);
+    $retResult = mysqli_fetch_all($result, $resulttype);
 
     return $retResult;
 }

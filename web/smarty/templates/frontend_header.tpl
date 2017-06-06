@@ -64,7 +64,7 @@ var year = {$currentYear};
 var field = 'average'; // field is a global variable PMB 2017-06-04
 var sitesInGraph = []; // holder of siteids
 var period = {$period};
-
+var category = {$currentCategory};
 </script>
 
 {if $tracking == 1}

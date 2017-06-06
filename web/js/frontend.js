@@ -42,10 +42,12 @@ function loadData(selectType) {
       period = jQuery('#week').val();
       period_type = 'week';
   }
+  else if (selectType == 'category') {
+      category = jQuery('#category').val();
+  }
 
   year = jQuery('#year').val();
-  category = jQuery('#category').val();
-console.log("cat: " + category);
+
   // do some checking to find values
   var currentPeriod = GetQueryStringByParameter('period');
 //  alert(period);
@@ -135,7 +137,9 @@ function changeYearSingle(libid, libname) {
 }
 
 
-function printStatistics() {
+
+
+function printStatistics(whichlibs) {
     var siteids = '';
     var count = 0; // to keep track if this is the first site
     for(var i = 0; i < sitesInGraph.length; i++) {
@@ -143,7 +147,11 @@ function printStatistics() {
         siteids += sitesInGraph[i].siteid;
         count++;
     }
-    document.location = 'serveStatistics.php?siteids=' + siteids;
+
+    year = jQuery('#year').val();
+    category = jQuery('#category').val();
+
+    document.location = 'serveStatistics.php?whichlibs=' + whichlibs + '&siteids=' + siteids + '&year=' + year + '&category=' + category;
 }
 
 

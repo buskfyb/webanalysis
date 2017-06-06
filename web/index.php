@@ -30,6 +30,8 @@ if (isset($_REQUEST['category'])) {
 $smarty->assign('monthNames', $monthNames);
 $smarty->assign('startYear', $startYear); // the year it all started PMB 14-06-2016
 $smarty->assign('currentYear', $year);
+$smarty->assign('currentCategory', $category);
+
 
 $smarty->assign('thisYear', date('Y')); // the year it ended (for now) PMB 14-06-2016
 
