@@ -57,7 +57,7 @@ Måned:
 Uke: 
 <select name="period" onchange="loadData('week')" id="week">
  <option value="1">Velg uke</option>
-{section name=week start=1 loop=52 step=1}
+{section name=week start=1 loop=53 step=1}
     <option value="{$smarty.section.week.index}" {if $smarty.section.week.index == $period && $period_type=='week'}SELECTED{/if}>{$smarty.section.week.index}</option>
 {/section}
 </select>
