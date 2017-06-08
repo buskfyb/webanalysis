@@ -45,6 +45,12 @@ $smarty->assign('data', $data);
 
 header('Content-type: text/plain');
 
+header("Content-type: text/csv");
+header("Cache-Control: no-store, no-cache");
+header('Content-Disposition: attachment; filename="statistics.csv"');
+
+// $file = fopen('php://output','w');
+
 $smarty->display('statistics_csv.tpl');          
 
 
