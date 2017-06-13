@@ -22,12 +22,12 @@ function insertData($pData, $siteid, $period, $period_type, $year) {
     global $dblink;
 
     if (!$stmt = mysqli_prepare($dblink, "INSERT INTO traffic (siteid, period, year, visitors, 
-        pageviews, visit_time, bounce_rate, visits, period_type, change_percent) VALUES (?,?,?,?,?,?,?,?,?,?)")) {
+        pageviews, visit_time, bounce_rate, visits, period_type, change_percent, population) VALUES (?,?,?,?,?,?,?,?,?,?,?)")) {
         echo mysqli_error($dblink);
         exit();
     }
-    if (!mysqli_stmt_bind_param($stmt, "ddddddddsd", $siteid, $period, $year, $pData['nb_uniq_visitors'], $pData['nb_actions'],
-        $pData['avg_time_on_site'], $pData['bounce_rate'], $pData['nb_visits'], $period_type, $pData['change_percent'])) {
+    if (!mysqli_stmt_bind_param($stmt, "ddddddddsdd", $siteid, $period, $year, $pData['nb_uniq_visitors'], $pData['nb_actions'],
+        $pData['avg_time_on_site'], $pData['bounce_rate'], $pData['nb_visits'], $period_type, $pData['change_percent'], $pData['population'])) {
             echo mysqli_error($dblink);
             exit();
         }
@@ -44,14 +44,13 @@ function insertData($pData, $siteid, $period, $period_type, $year) {
 
 function updateData($id, $pData) {
     global $dblink;
-
     if (!$stmt = mysqli_prepare($dblink, "UPDATE traffic SET visitors = ?, 
-        pageviews = ?, visit_time = ?, bounce_rate = ?, visits = ?, change_percent = ? WHERE id = ?")) {
+        pageviews = ?, visit_time = ?, bounce_rate = ?, visits = ?, change_percent = ?, population = ? WHERE id = ?")) {
         echo mysqli_error($dblink);
         exit();
     }
-    if (!mysqli_stmt_bind_param($stmt, "ddddddd", $pData['nb_uniq_visitors'], $pData['nb_actions'],
-        $pData['avg_time_on_site'], $pData['bounce_rate'], $pData['nb_visits'], $pData['change_percent'], $id)) {
+    if (!mysqli_stmt_bind_param($stmt, "dddddddd", $pData['nb_uniq_visitors'], $pData['nb_actions'],
+        $pData['avg_time_on_site'], $pData['bounce_rate'], $pData['nb_visits'], $pData['change_percent'], $pData['population'], $id)) {
             echo mysqli_error($dblink);
             exit();
         }
@@ -111,7 +110,7 @@ function getData($siteid,$today,$period_type) {
 function getAllLibs() {
     global $dblink;
     global $total_id; // the id that is used for the total traffic for all sites
-    if (!$result = mysqli_query($dblink, "SELECT id, libraryname, siteid FROM libraries WHERE siteid != 0 AND id != " . $total_id)) {echo mysqli_error($dblink);exit();}    
+    if (!$result = mysqli_query($dblink, "SELECT id, libraryname, siteid, population FROM libraries WHERE siteid != 0 AND id != " . $total_id)) {echo mysqli_error($dblink);exit();}    
     $retArray = mysqli_fetch_all($result);
 
     return $retArray;    
@@ -137,7 +136,7 @@ function getPeriod($thedate, $period_type) {
 // it takes the id of the site, a date and a period_type as arguments. 
 // Legal values for period_type is month and week
 // 30-05-2016 PMB
-function doForLib($siteid, $thedate, $period_type) {
+function doForLib($siteid, $population, $thedate, $period_type) {
  
         // get the year from the date 30-05-2016 PMB       
         $year = date('Y', strtotime($thedate));
@@ -162,7 +161,10 @@ function doForLib($siteid, $thedate, $period_type) {
         }
 
         $pData['change_percent'] = $change_percent;
-        
+
+        // adding population data
+        $pData['population'] = $population;
+
         // check if record exists, if so do an update 30-05-2016 PMB
         if ($id = recordExists($siteid, $period, $year, $period_type)) {    
            echo "Finnes: " . $id . "\n";
@@ -189,10 +191,10 @@ function updateTotalTraffic($thedate, $period_type) {
     // get total data for the period
     if (!$stmt = mysqli_prepare($dblink, "SELECT SUM(visitors) as totalvisitors, SUM(pageviews) as totalpageviews, 
     SUM(visits) as totalvisits, CAST(AVG(visit_time) AS UNSIGNED) as total_visit_time, CAST(AVG(bounce_rate) AS UNSIGNED)
-    as total_bonuce_rate FROM `traffic` WHERE year = ? AND period = ? AND period_type = ? AND  siteid != ?")) {echo mysqli_error($dblink);exit();}    
+    as total_bonuce_rate, SUM(population) FROM `traffic` WHERE year = ? AND period = ? AND period_type = ? AND  siteid != ?")) {echo mysqli_error($dblink);exit();}    
     if (!mysqli_stmt_bind_param($stmt, "ddsd", $year, $period, $period_type, $total_id)) {echo mysqli_error($dblink);exit();}
     if (!mysqli_stmt_execute($stmt)) {echo mysqli_error($dblink);exit();}        
-    if (!mysqli_stmt_bind_result($stmt, $totalvisitors, $totalpageviews, $totalvisits, $total_visit_time, $total_bounce_rate)) {echo mysqli_error($dblink);exit();} 
+    if (!mysqli_stmt_bind_result($stmt, $totalvisitors, $totalpageviews, $totalvisits, $total_visit_time, $total_bounce_rate, $total_population)) {echo mysqli_error($dblink);exit();} 
     mysqli_stmt_fetch($stmt);   
 
     // closing the stmt to free up resources 01-07-2016 PMB
@@ -204,7 +206,8 @@ function updateTotalTraffic($thedate, $period_type) {
         'nb_actions' => $totalpageviews,
         'avg_time_on_site' => $total_visit_time,
         'bounce_rate' => $total_bounce_rate,
-        'nb_visits' => $totalvisits
+        'nb_visits' => $totalvisits,
+        'population' => $total_population
     );
 
     // get visits for last period to calculate change 01-06-2016 PMB
@@ -274,8 +277,9 @@ function doLibsForDate($thedate) {
 
     foreach ($allLibs as $lib) {
         $siteid = $lib[2];
-        doForLib($siteid, $thedate, 'week');
-        doForLib($siteid, $thedate, 'month');
+        $population = $lib[3];
+        doForLib($siteid, $population, $thedate, 'week');
+        doForLib($siteid, $population, $thedate, 'month');
     }
 
     // update the total traffic for the week and month where the date occurs
