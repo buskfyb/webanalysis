@@ -300,7 +300,7 @@ else {
     // validate the date given on command line 01-06-2016 PMB
     if (strtotime($argv[1])) {
         $thedate = $argv[1];            
-        doLibsForDate($theDate);
+        doLibsForDate($thedate);
     }
     elseif ($argv[1] == 'all') {  // we are to import all data from startdate 01-06-2016 PMB
         // date from when we want to import data
