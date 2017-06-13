@@ -47,7 +47,7 @@
 Måned: 
 <select name="period" onchange="loadData('month')" id="month">
  <option value="1">Velg måned</option>
-{section name=mnd start=1 loop=12 step=1}
+{section name=mnd start=1 loop=13 step=1}
     <option value="{$smarty.section.mnd.index}" {if $smarty.section.mnd.index == $period && $period_type=='month'}SELECTED{/if}>{$monthNames[$smarty.section.mnd.index-1]}</option>
 {/section}
 </select>
