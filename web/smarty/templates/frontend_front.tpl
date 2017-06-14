@@ -1,16 +1,17 @@
 {include file="frontend_header.tpl"}
 
 <div class="velg-aar">
-<span class="glyphicon glyphicon-stats" aria-hidden="true"></span> <strong>Velg år:</strong>
+<span class="glyphicon glyphicon-stats" aria-hidden="true"></span> <strong>Filtrer utvalg </strong>
+
+År:
 <select name="year" id="year" onchange="loadData('year')">
 {section name=year start=$startYear loop=$thisYear+1 step=1}
  <option value="{$smarty.section.year.index}" {if $smarty.section.year.index == $currentYear}SELECTED{/if}>{$smarty.section.year.index}</option>
 {/section}
 </select>
-</div>
 
-<div class="velg-aar">
-<span class="glyphicon glyphicon-stats" aria-hidden="true"></span> <strong>Velg kategori:</strong>
+
+Kategori:
 <select name="category" id="category" onchange="loadData('category')">
 <option value="0">Alle bibliotek</option>
 {foreach from=$categories item=c}
@@ -41,27 +42,8 @@
 
 <div class="container-fluid">
 
-<div style="float:right;"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span> <a href="http://statistikk.webloft.no​" target=_blank" class="clear">Hjelp</a></div>
+<div><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span> <a href="http://statistikk.webloft.no​" target=_blank" class="clear">Hjelp</a></div>
 
-<div class="table-selector">
-Måned: 
-<select name="period" onchange="loadData('month')" id="month">
- <option value="1">Velg måned</option>
-{section name=mnd start=1 loop=13 step=1}
-    <option value="{$smarty.section.mnd.index}" {if $smarty.section.mnd.index == $period && $period_type=='month'}SELECTED{/if}>{$monthNames[$smarty.section.mnd.index-1]}</option>
-{/section}
-</select>
-
-- eller -
-
-Uke: 
-<select name="period" onchange="loadData('week')" id="week">
- <option value="1">Velg uke</option>
-{section name=week start=1 loop=53 step=1}
-    <option value="{$smarty.section.week.index}" {if $smarty.section.week.index == $period && $period_type=='week'}SELECTED{/if}>{$smarty.section.week.index}</option>
-{/section}
-</select>
-</div>
 
 <div class="table-responsive">
 <table id="libraryTable" class="table table-striped display">
@@ -109,15 +91,39 @@ Uke:
 <p>Eksporter til CSV: <a href="javascript:printStatistics('selected')">Valgte</a> | <a href="javascript:printStatistics('all')">Alle</a></p>
 
 
-{literal}
 <script>
+
+
+var output = 'Måned: ';
+output += '<select name="period" onchange="loadData(\'month\')" id="month"><option value="1">Velg måned</option>';
+{section name=mnd start=1 loop=13 step=1}
+output += '<option value="{$smarty.section.mnd.index}" {if $smarty.section.mnd.index == $period && $period_type=='month'}SELECTED{/if}>{$monthNames[$smarty.section.mnd.index-1]}</option>';
+{/section}
+output += '</select> - eller - ';
+
+output += 'Uke: <select name="period" onchange="loadData(\'week\')" id="week"><option value="1">Velg uke</option>';
+{section name=week start=1 loop=53 step=1}
+ output += '<option value="{$smarty.section.week.index}" {if $smarty.section.week.index == $period && $period_type=='week'}SELECTED{/if}>{$smarty.section.week.index}</option>';
+ {/section}
+ output += '</select>';
+
+{literal}
+
 $(document).ready( function () {
     $('#libraryTable').DataTable();
+
+    $("div.toolbar").html(output);
+
 } );
+
 $('#libraryTable').DataTable( {
+    "dom": '<"toolbar">frtip',
     "order": [],
     paging: false,
     "searching": true,
+    "language": {
+        "search": "Søk:"
+    },
     "info": false,
     "columns": [
         null,
@@ -135,6 +141,9 @@ $('#libraryTable').DataTable( {
         {className: 'dt-body-center', orderable: false}
       ]
 } );
+
+
+ 
 
 </script>
 

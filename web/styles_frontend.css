@@ -110,7 +110,7 @@ strong {font-weight: 700;}
 	background: #edeae5;
 }
 
-.table-selector {
+.table-selector, .dataTables_filter {
 	margin: 5rem auto 0.1rem;
 	padding: 1.2rem 0.5rem 0.6rem;
 	background: #f2f0ed;
@@ -151,3 +151,8 @@ footer {
 }
 
 footer a {color :#7b715e;}
+
+.toolbar {
+	padding: 25px 0 0 7px;
+    float: left;
+}
