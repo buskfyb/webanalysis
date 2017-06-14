@@ -25,7 +25,7 @@ function validateForm() {
         $('#siteid_error').html("");
     }
 
-    if (!isItInt($('#population').val())) {
+    if ($('#population').val() != '' && !isItInt($('#population').val())) {
         $('#population_error').html("Må være tall.");
         formOK = false;
     } else {

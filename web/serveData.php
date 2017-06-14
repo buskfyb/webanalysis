@@ -51,7 +51,13 @@ foreach ($allids as $siteid) {
 
 
 // encode datastructure as json and return to javascript frontend for presentation PMB 07-06-2016
-echo json_encode($data);
+if (count($data) == 0) {
+    echo '{"status":"none"}';
+    }
+else {
+  echo json_encode($data);
+}
+
         
 
 

@@ -147,7 +147,7 @@ function getDataYear($siteid, $year, $period_type, $field) {
     
     // all data is fetched as a associative array 28-05-2016 PMB
     $retResult = mysqli_fetch_all($result);
-
+error_log(print_r($retResult, true));
     return $retResult;    
 }
 

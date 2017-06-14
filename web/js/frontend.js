@@ -189,8 +189,14 @@ function getYearData() {
               }
 
             var inData = JSON.parse(result);
-            inData.unshift(header);
-            drawChart(fieldText, inData);
+            if (inData.status == 'none') {
+                // handle error
+                console.log('No data');
+            }
+            else {
+                inData.unshift(header);
+                drawChart(fieldText, inData);
+            }
         }
     })
 }
