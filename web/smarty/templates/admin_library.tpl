@@ -29,6 +29,10 @@
             </select>
         </td>
     </tr>
+    <tr>
+        <td>Nummer (fylke/kommune):</td><td><input type="text" id="external_ref" name="external_ref" value="{$external_ref}">  <span class="redMsg" id="external_ref_error"></span></td>
+    </tr>
+
 
     <tr>
         <td></td><td><input type="button" onclick="validateForm()" value="Lagre"> <span class="redMsg">{$savemsg}</span></td>

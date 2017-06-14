@@ -78,6 +78,7 @@ Uke:
             <th>Besøk pr 1000 innbygger</th>
             <th>Sider pr besøk</th>
             <th>Endring i %</th>
+            <th>Nr</th>
             <th>Sammen- lign</th>
         </tr>
 </thead>
@@ -95,6 +96,7 @@ Uke:
     <td>{$l.visits_per_pop}</td>
     <td>{$l.pages_per_visit|string_format:"%.2f"}</td>
     <td>{$l.change_percent}</td>
+    <td>{$l.external_ref}</td>
     <td><input type="checkbox" id="{$l.siteid}" onchange="checkLibrary({$l.siteid},'{$l.libraryname}')"></td>
    </tr>
 {/foreach}
@@ -115,11 +117,12 @@ $(document).ready( function () {
 $('#libraryTable').DataTable( {
     "order": [],
     paging: false,
-    "searching": false,
+    "searching": true,
     "info": false,
     "columns": [
         null,
         {orderable: false},
+        {className: 'dt-body-right'},
         {className: 'dt-body-right'},
         {className: 'dt-body-right'},
         {className: 'dt-body-right'},
@@ -134,6 +137,7 @@ $('#libraryTable').DataTable( {
 } );
 
 </script>
+
 {/literal}
 
 {include file="frontend_footer.tpl"}

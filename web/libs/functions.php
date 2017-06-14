@@ -12,7 +12,7 @@ function getData($period, $period_type, $year, $category) {
 
     if ($category == 0) {
         if (!$stmt = mysqli_prepare($dblink, "SELECT l.libraryname, l.siteid, t.population, t.visits, 
-            t.visitors, t.pageviews, t.visit_time, t.bounce_rate, CAST((t.visits/t.population*1000) as UNSIGNED) as visits_per_pop, change_percent, (t.pageviews/t.visits) AS pages_per_visit, l.URL FROM libraries l join traffic t on l.siteid = t.siteid WHERE 
+            t.visitors, t.pageviews, t.visit_time, t.bounce_rate, CAST((t.visits/t.population*1000) as UNSIGNED) as visits_per_pop, change_percent, (t.pageviews/t.visits) AS pages_per_visit, l.URL, l.external_ref FROM libraries l join traffic t on l.siteid = t.siteid WHERE 
             period_type = ? AND period = ? AND year = ? ORDER BY t.visitors DESC")) {
             echo mysqli_error($dblink);
             exit();
@@ -24,7 +24,7 @@ function getData($period, $period_type, $year, $category) {
     }
     else {
         if (!$stmt = mysqli_prepare($dblink, "SELECT l.libraryname, l.siteid, t.population, t.visits, 
-            t.visitors, t.pageviews, t.visit_time, t.bounce_rate, CAST((t.visits/t.population*1000) as UNSIGNED) as visits_per_pop, change_percent, (t.pageviews/t.visits) AS pages_per_visit, l.URL 
+            t.visitors, t.pageviews, t.visit_time, t.bounce_rate, CAST((t.visits/t.population*1000) as UNSIGNED) as visits_per_pop, change_percent, (t.pageviews/t.visits) AS pages_per_visit, l.URL, l.external_ref 
             FROM libraries l 
             left join traffic t on l.siteid = t.siteid 
             WHERE (

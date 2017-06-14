@@ -233,6 +233,7 @@ function editLibrary($libid = 0, $savemsg = '')  {
     $smarty->assign('URL', '');
     $smarty->assign('category', '');
     $smarty->assign('categories', getCategories());
+    $smarty->assign('external_ref', '');
     $smarty->assign('heading', 'Nytt bibliotek');
     $smarty->assign('savemsg', $savemsg);
     $smarty->assign('doaction', 'dbInsertLibrary');
@@ -240,14 +241,14 @@ function editLibrary($libid = 0, $savemsg = '')  {
     // if libid is not 0, then we are editing a library 28-05-2016 PMB
     if ($libid != 0) {
         // get data for the library 28-05-2016 PMB
-        if (!$stmt = mysqli_prepare($dblink, "SELECT id, libraryname, siteid, population, URL, category FROM libraries WHERE id = ?")) {
+        if (!$stmt = mysqli_prepare($dblink, "SELECT id, libraryname, siteid, population, URL, category, external_ref FROM libraries WHERE id = ?")) {
             echo mysqli_error($dblink);
             exit();
         }    
 
         if (!mysqli_stmt_bind_param($stmt, "d", $libid)) {echo mysqli_error($dblink);exit();}
         if (!mysqli_stmt_execute($stmt)) {echo mysqli_error($dblink);exit();}        
-        if (!mysqli_stmt_bind_result($stmt, $id, $libraryname, $siteid, $population, $URL, $category)) {echo mysqli_error($dblink);exit();} 
+        if (!mysqli_stmt_bind_result($stmt, $id, $libraryname, $siteid, $population, $URL, $category, $external_ref)) {echo mysqli_error($dblink);exit();} 
         if (!mysqli_stmt_fetch($stmt)) {echo mysqli_error($dblink);exit();};
 
         // assign info about library to the smarty object. 28-05-2016 PMB
@@ -257,6 +258,7 @@ function editLibrary($libid = 0, $savemsg = '')  {
         $smarty->assign('population', $population);
         $smarty->assign('URL', $URL);
         $smarty->assign('category', $category);
+        $smarty->assign('external_ref', $external_ref);
         $smarty->assign('heading', 'Rediger bibliotek');
         $smarty->assign('doaction', 'dbUpdateLibrary');
     }
@@ -276,16 +278,16 @@ function updateTotalLibrary() {
     mysqli_query($dblink, "UPDATE libraries SET population = " . $population[0] . " WHERE siteid = " . $total_id);
 }
 
-function dbInsertLibrary($libraryname, $siteid, $population, $URL, $category) {
+function dbInsertLibrary($libraryname, $siteid, $population, $URL, $category, $external_ref) {
     // smarty is global object 28-05-2016 PMB
     global $smarty;
     global $dblink;
 
-    if (!$stmt = mysqli_prepare($dblink, "INSERT INTO libraries (libraryname, siteid, population, URL, category) VALUES (?,?,?,?,?)")) {
+    if (!$stmt = mysqli_prepare($dblink, "INSERT INTO libraries (libraryname, siteid, population, URL, category, external_ref) VALUES (?,?,?,?,?,?)")) {
         echo mysqli_error($dblink);
         exit();
     }
-    mysqli_stmt_bind_param($stmt, "sddsd", $libraryname, $siteid, $population, $URL, $category);
+    mysqli_stmt_bind_param($stmt, "sddsd", $libraryname, $siteid, $population, $URL, $category, $external_ref);
     mysqli_stmt_execute($stmt);        
 
     $lastid = mysqli_insert_id($dblink);
@@ -296,16 +298,16 @@ function dbInsertLibrary($libraryname, $siteid, $population, $URL, $category) {
     editLibrary($lastid, 'Lagret');    
 }
 
-function dbUpdateLibrary($libraryname, $siteid, $population, $URL, $category, $id) {
+function dbUpdateLibrary($libraryname, $siteid, $population, $URL, $category, $external_ref, $id) {
     // global objects 28-05-2016 PMB
     global $smarty;
     global $dblink;
 
-    if (!$stmt = mysqli_prepare($dblink, "UPDATE libraries SET libraryname=?, siteid=?, population=?, URL=?, category=? WHERE id = ?")) {
+    if (!$stmt = mysqli_prepare($dblink, "UPDATE libraries SET libraryname=?, siteid=?, population=?, URL=?, category=?, external_ref=? WHERE id = ?")) {
         echo mysqli_error($dblink);
         exit();
     }
-    if (!mysqli_stmt_bind_param($stmt, "sddsdd", $libraryname, $siteid, $population, $URL, $category, $id)) {echo mysqli_error($dblink);exit();};
+    if (!mysqli_stmt_bind_param($stmt, "sddsdsd", $libraryname, $siteid, $population, $URL, $category, $external_ref, $id)) {echo mysqli_error($dblink);exit();};
     if (!mysqli_stmt_execute($stmt))  {echo mysqli_error($dblink);exit();};        
 
     // update population for the library with total traffic 03-06-2016 PMB
