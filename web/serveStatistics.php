@@ -32,6 +32,10 @@ $data = array();
 
 // loop all siteids to get data PMB 07-06-2016
 foreach ($allids as $siteid) {
+
+    // if this is the total library then we juste continue
+    if ($siteid == $total_id) continue;
+
     // get the data for the siteid PMB 07-06-2016
    $libData = getSingleData($siteid, $period_type, $year, MYSQLI_NUM);
    if (count($libData) > 0) { // if we have any elements at all PMB 07-06-2017
@@ -40,6 +44,7 @@ foreach ($allids as $siteid) {
        }
    }
 }
+
 
 $smarty->assign('data', $data);
 

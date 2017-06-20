@@ -176,8 +176,8 @@ function getYearData() {
     else if (field == 'pageviews') {fieldText = 'Sidevisninger per uke';}
     else if (field == 'visitors') {fieldText = 'Unike besøkende per uke';}
     else if (field == 'pageviews_per_visit') {fieldText = 'Sider per besøk per uke';}
-    
 
+    
     if (period_type == 'week') {periodName = 'Uke';}
     jQuery.ajax({
         url: URL,
