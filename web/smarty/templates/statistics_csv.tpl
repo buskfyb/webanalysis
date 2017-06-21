@@ -1,4 +1,4 @@
-libraryname{"\t"}ID{"\t"}population{"\t"}Besøk{"\t"}Periode{"\t"}visitors{"\t"}Sidevisninger{"\t"}visit_time{"\t"}Frafallsprosent{"\t"}visits_per_pop{"\t"}Endring prosent{"\t"}Sider per besøk{"\t"}category
+Navn{"\t"}ID{"\t"}Befolkning{"\t"}Besøk{"\t"}Periode{"\t"}visitors{"\t"}Sidevisninger{"\t"}Besøkslengde{"\t"}Frafallsprosent{"\t"}Besøk per 1000 innbyggere{"\t"}Endring prosent{"\t"}Sider per besøk{"\t"}category
 {strip}
 {foreach from=$data item=site}
  {foreach from=$site item=line}
