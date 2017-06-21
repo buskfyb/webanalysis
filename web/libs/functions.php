@@ -65,7 +65,7 @@ function getAllIds() {
 
 
 // returns all data for a given year for a given library 08-06-2016 PMB
-function getSingleData($siteid, $period_type, $year, $resulttype=MYSQL_BOTH) {
+function getSingleData($siteid, $period_type, $year, $resulttype=MYSQLI_BOTH) {
     // smarty and dblink are global objects 28-05-2016 PMB
     global $smarty;
     global $dblink;
