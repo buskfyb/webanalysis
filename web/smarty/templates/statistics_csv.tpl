@@ -1,4 +1,4 @@
-Navn{"\t"}ID{"\t"}Befolkning{"\t"}Besøk{"\t"}Periode{"\t"}visitors{"\t"}Sidevisninger{"\t"}Besøkslengde{"\t"}Frafallsprosent{"\t"}Besøk per 1000 innbyggere{"\t"}Endring prosent{"\t"}Sider per besøk{"\t"}category
+Navn{"\t"}ID{"\t"}Befolkning{"\t"}Besøk{"\t"}Periode{"\t"}visitors{"\t"}Sidevisninger{"\t"}Besøkslengde{"\t"}Frafallsprosent{"\t"}Besøk per 1k innbygger{"\t"}Endring prosent{"\t"}Sider per besøk{"\t"}category
 {strip}
 {foreach from=$data item=site}
  {foreach from=$site item=line}
