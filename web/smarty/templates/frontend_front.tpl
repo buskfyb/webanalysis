@@ -11,6 +11,8 @@
 </select>
 
 
+
+
 Kategori:
 <select name="category" id="category" onchange="loadData('category')">
 <option value="0">Alle bibliotek</option>
