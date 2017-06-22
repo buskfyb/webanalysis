@@ -1,7 +1,7 @@
 {include file="frontend_header.tpl"}
 
 <div class="velg-aar">
-<span class="glyphicon glyphicon-stats" aria-hidden="true"></span> <strong>Filtrer utvalg </strong>
+<span class="glyphicon glyphicon-stats" aria-hidden="true"></span> <strong>Velg </strong>
 
 År:
 <select name="year" id="year" onchange="loadData('year')">
