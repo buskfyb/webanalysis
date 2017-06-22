@@ -124,7 +124,8 @@ $('#libraryTable').DataTable( {
     paging: false,
     "searching": true,
     "language": {
-        "search": "Søk:"
+        "search": "Søk:",
+        "emptyTable": "Ingen data for valgt periode"
     },
     "info": false,
     "columns": [
