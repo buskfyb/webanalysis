@@ -49,12 +49,13 @@ foreach ($allids as $siteid) {
 $smarty->assign('data', $data);
 
 header('Content-type: text/plain');
-
-header("Content-type: text/csv");
+header('Content-Encoding: UTF-8');
+header('Content-type: text/csv; charset=UTF-8');
 header("Cache-Control: no-store, no-cache");
 header('Content-Disposition: attachment; filename="statistics.csv"');
 
 // $file = fopen('php://output','w');
+echo "\xEF\xBB\xBF";
 
 $smarty->display('statistics_csv.tpl');          
 
