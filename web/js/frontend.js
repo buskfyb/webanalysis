@@ -192,6 +192,7 @@ function getYearData() {
             if (inData.status == 'none') {
                 // handle error
                 console.log('No data');
+                jQuery('#curve_chart').html("<div style='margin-left: 50px;'><strong>Ingen data for valgt periode</strong></div>");
             }
             else {
                 inData.unshift(header);
