@@ -18,8 +18,8 @@
 
 <div>
 <div class="btn-group graph-selector" aria-label="velg-graf">
-<a href="javascript:setField('average')" class="btn btn-default" role="button">Besøk per 1000</a>
 <a href="javascript:setField('visits')" class="btn btn-default" role="button">Besøk totalt</a>
+<a href="javascript:setField('average')" class="btn btn-default" role="button">Besøk per 1000</a>
 <a href="javascript:setField('visitors')" class="btn btn-default" role="button">Unike besøkende</a>
 <a href="javascript:setField('bounce_rate')" class="btn btn-default" role="button">Fluktfrekvens i %</a>
 <a href="javascript:setField('pageviews')" class="btn btn-default" role="button">Sidevisninger</a>
