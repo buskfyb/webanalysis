@@ -16,7 +16,7 @@
 
 
 
-<div class="center">
+<div>
 <div class="btn-group graph-selector" aria-label="velg-graf">
 <a href="javascript:setField('average')" class="btn btn-default" role="button">Besøk per 1000</a>
 <a href="javascript:setField('visits')" class="btn btn-default" role="button">Besøk totalt</a>
