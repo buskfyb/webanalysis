@@ -77,7 +77,9 @@ var category = {$currentCategory};
     {* outer container *}    
 <header>
     <div class="container-fluid">
+        <a href="/">
  		<h1><span class="glyphicon glyphicon-stats" aria-hidden="true"></span>  {if $development == 1}DEVELOPMENT - {/if}Norsk bibliotekindeks</h1>
+         </a>
  		<h4>– Nettsidestatistikk fra norske bibliotek</h4>   
     </div>
 </header>
