@@ -75,10 +75,7 @@ function getDimIndex( $dim , $name , $value ){
 
 	//"index" can be an object or an array
 	if( is_object( $ndx ) ){ //Object
-		if (isset($ndx->value)) {
-			return $ndx->$value;
-		}
-		else return 0;
+		return $ndx->$value;
 	}else{ //Array
 		return array_search( $value , $ndx , TRUE );
 	}
