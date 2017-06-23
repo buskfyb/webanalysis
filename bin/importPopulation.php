@@ -1,5 +1,7 @@
 <?php
 
+require_once(dirname(__FILE__) . '/../config/config.php');
+
 ## library picked from internett
 # this URL: https://json-stat.org/tools/php
 
@@ -73,7 +75,10 @@ function getDimIndex( $dim , $name , $value ){
 
 	//"index" can be an object or an array
 	if( is_object( $ndx ) ){ //Object
-		return $ndx->$value;
+		if (isset($ndx->value)) {
+			return $ndx->$value;
+		}
+		else return 0;
 	}else{ //Array
 		return array_search( $value , $ndx , TRUE );
 	}
@@ -141,27 +146,45 @@ function show( $query , $result ){
 }
 
 
-#################### END OF LIB #####################################
+/******************** END OF LIB *************************/
+
+
+function getAllLibs($cat) {
+    global $dblink;
+    global $total_id; // the id that is used for the total traffic for all sites
+    if (!$result = mysqli_query($dblink, "SELECT id, libraryname, siteid, population, external_ref FROM libraries WHERE external_ref != 0 and siteid != 0 AND category = " . $cat . " and id != " . $total_id . " ORDER BY libraryname")) {echo mysqli_error($dblink);exit();}    
+    $retArray = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+    return $retArray;    
+}
+
+function getStat($jsonstat, $external_ref) {
+	$query = array(
+	    "Region" => $external_ref,
+	    "ContentsCode" => "Folketallet11",
+	    "Tid" => "2017K1"
+	);
+
+	//Parse: Get value from $jsonstat and $query
+	$value=getValue( $jsonstat , $query );
+
+	return $value;
+}
+
+
+/*************************** EXECUTION STARTS HERE *************************/
 
 
 $jsonstat = JSONstat("https://data.ssb.no/api/v0/dataset/1108.json?lang=no");
 
-$query = array(
-    "Region" => "0501",
-    "ContentsCode" => "Folketallet11",
-    "Tid" => "2017K1"
+$allLibs = getAllLibs(1);
 
-);
-
-
-//Parse: Get value from $jsonstat and $query
-$value=getValue( $jsonstat , $query );
-
-//Write: Display query and result
-//show( $query , $value );
-
-print_r($value);
-
+foreach ($allLibs as $l) {
+	if (!empty($l['external_ref'])) {
+		$val = getStat($jsonstat, strval($l['external_ref']));
+		echo $l['libraryname'] . ": " . $l['population'] . " " . $val . "\n";
+	}
+}
 
 
 
