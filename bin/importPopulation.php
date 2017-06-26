@@ -19,6 +19,12 @@ function getValue( $jsonstat , $query ){
 	//1. array('concept'=>'UNR','area'=>'US','year'=>'2010') ==> array(0, 33, 7)
 	$indices=getDimIndices( $jsonstat , $query );
 
+	// PMB PMB
+	// Dirty hack to avoid libraries with wrong external_ref to get wrong population PMB 2017-06-23
+	// this is due to no error handling in external lib
+	if (empty($indices[0])) {return 0;}
+	// end of hack
+
 	//2. array(0, 33, 7) ==> 403
 	$index=getValueIndex( $jsonstat , $indices );
 
@@ -179,7 +185,19 @@ $allLibs = getAllLibs(1);
 foreach ($allLibs as $l) {
 	if (!empty($l['external_ref'])) {
 		$val = getStat($jsonstat, strval($l['external_ref']));
-		echo $l['libraryname'] . ": " . $l['population'] . " " . $val . "\n";
+
+		if ($val != 0) {
+			/* update population for the lib PMB 2017-06-23 */
+			echo "\n\ndoing update: ";
+			echo $l['libraryname'] . ": " . $l['population'] . " " . $val . "\n";
+			print_r($l);
+			$query = "UPDATE libraries SET population = " . $l['population'] . ", import_msg = 'OK' WHERE siteid = " . $l['siteid'];
+			echo $query . "\n";
+#			mysqli_query($dblink, $query);
+		}
+		else {
+			echo "no update for " . $l['libraryname'] . ": " . $l['external_ref'] . "\n";
+		}
 	}
 }
 
