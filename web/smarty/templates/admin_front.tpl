@@ -12,6 +12,7 @@
             <th>Befolkning</th>
             <th>URL</th>
             <th>Kategori</th>
+            <th>Importstatus</th>
             <th></th>
             <th></th>
         </tr>
@@ -24,6 +25,7 @@
     <td>{$l.population}</td>
     <td>{$l.URL}</td>
     <td>{$l.categoryname}</td>
+    <td>{$l.import_msg}</td>
     <td><a href="/adminlibs/index.php?do=editLibrary&id={$l.id}">Rediger</a></td>
     <td><a href="/adminlibs/index.php?do=deleteLibrary&id={$l.id}">Slett</a></td>
    </tr>

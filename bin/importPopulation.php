@@ -165,7 +165,7 @@ function getStat($jsonstat, $external_ref) {
 	$query = array(
 	    "Region" => $external_ref,
 	    "ContentsCode" => "Folketallet11",
-	    "Tid" => "2017K1"
+	    "Tid" => ""
 	);
 
 	//Parse: Get value from $jsonstat and $query
@@ -178,9 +178,11 @@ function getStat($jsonstat, $external_ref) {
 /*************************** EXECUTION STARTS HERE *************************/
 
 
+/*************** FIRST WE DO KOMMUNER ********/
+
 $jsonstat = JSONstat("https://data.ssb.no/api/v0/dataset/1108.json?lang=no");
 
-$allLibs = getAllLibs(1);
+$allLibs = getAllLibs(1); // returns all libs in cat 1, kommuner
 
 foreach ($allLibs as $l) {
 	if (!empty($l['external_ref'])) {
@@ -188,18 +190,51 @@ foreach ($allLibs as $l) {
 
 		if ($val != 0) {
 			/* update population for the lib PMB 2017-06-23 */
-			echo "\n\ndoing update: ";
-			echo $l['libraryname'] . ": " . $l['population'] . " " . $val . "\n";
-			print_r($l);
-			$query = "UPDATE libraries SET population = " . $l['population'] . ", import_msg = 'OK' WHERE siteid = " . $l['siteid'];
-			echo $query . "\n";
-#			mysqli_query($dblink, $query);
+			$query = "UPDATE libraries SET population = " . $val . ", import_msg = 'OK' WHERE siteid = " . $l['siteid'];
+			mysqli_query($dblink, $query);
 		}
 		else {
-			echo "no update for " . $l['libraryname'] . ": " . $l['external_ref'] . "\n";
+			$query = "UPDATE libraries SET import_msg = 'Wrong  WHERE siteid = " . $l['siteid'];
+			mysqli_query($dblink, $query);
 		}
 	}
 }
+
+//  updating total population when finished. NOTE: Only kommuner (kat=1) are counted
+$totalQ = "SELECT SUM(population) as total_population FROM libraries WHERE category = 1 AND siteid != " . $total_id;
+$res = mysqli_query($dblink, $totalQ);
+$total = mysqli_fetch_assoc($res);
+mysqli_query($dblink, "UPDATE libraries SET population = " . $total['total_population'] . " WHERE siteid = " . $total_id);
+
+
+
+
+/*************** THEN WE DO FYLKER ********/
+
+$jsonstat = JSONstat("https://data.ssb.no/api/v0/dataset/1102.json?lang=no");
+
+$allLibs = getAllLibs(2); // returns all libs in cat 1, kommuner
+
+foreach ($allLibs as $l) {
+	if (!empty($l['external_ref'])) {
+		$val = getStat($jsonstat, strval($l['external_ref']));
+
+		if ($val != 0) {
+			/* update population for the lib PMB 2017-06-23 */
+			$query = "UPDATE libraries SET population = " . $val . ", import_msg = 'OK' WHERE siteid = " . $l['siteid'];
+			mysqli_query($dblink, $query);
+		}
+		else {
+			$query = "UPDATE libraries SET import_msg = 'Wrong  WHERE siteid = " . $l['siteid'];
+			mysqli_query($dblink, $query);
+		}
+	}
+}
+
+
+
+
+
 
 
 
