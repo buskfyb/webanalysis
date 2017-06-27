@@ -287,7 +287,7 @@ function dbInsertLibrary($libraryname, $siteid, $population, $URL, $category, $e
         echo mysqli_error($dblink);
         exit();
     }
-    mysqli_stmt_bind_param($stmt, "sddsd", $libraryname, $siteid, $population, $URL, $category, $external_ref);
+    mysqli_stmt_bind_param($stmt, "sddsds", $libraryname, $siteid, $population, $URL, $category, $external_ref);
     mysqli_stmt_execute($stmt);        
 
     $lastid = mysqli_insert_id($dblink);
