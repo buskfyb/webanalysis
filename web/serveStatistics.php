@@ -57,7 +57,35 @@ header('Content-Disposition: attachment; filename="statistics.csv"');
 // $file = fopen('php://output','w');
 echo "\xEF\xBB\xBF";
 
-$smarty->display('statistics_csv.tpl');          
+
+echo "Navn;ID;Befolkning;Besøk;Periode;Besøkende;Sidevisninger;Besøkslengde;Frafallsprosent;Besøk_per_1000_innbygger;Endring_prosent;Sider_per_besøk;Kategori\r\n";
+
+// Number of decimals, this wil round down to 3
+
+$scalefactor = 1000;
+
+foreach($data as $site) {
+ foreach ($site as $row) {
+ $first = 1;
+ foreach ($row as $column) {
+  if (!$first) {
+   print ";";
+  } else {
+   $first = false;
+  }
+  if (is_numeric($column)) {
+    print "=" . round($column*$scalefactor) . "/$scalefactor";
+  } else {
+    print "\"$column\"";
+  }
+ }
+ print "\r\n";
+}
+
+}
+
+
+# $smarty->display('statistics_csv.tpl');          
 
 
 ?>
