@@ -3,7 +3,11 @@ Navn;ID;Befolkning;Besøk;Periode;Besøkende;Sidevisninger;Besøkslengde;Frafall
 {foreach from=$data item=site}
  {foreach from=$site item=line}
   {foreach from=$line item=e}
+   {if $e@index eq 0}
    {$e};
+   {else}
+   ={$e*1000}/1000;
+   {/if}
   {/foreach}{"\n"}
  {/foreach}
 {/foreach}
