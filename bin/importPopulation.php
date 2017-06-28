@@ -2,6 +2,21 @@
 
 require_once(dirname(__FILE__) . '/../config/config.php');
 
+
+/********************************************
+
+This script automatically updates the population for all kommuner and fylker. (categories 1 and 2)
+They need to have correct kommunenummer and fylkesnummer,
+Data is fetched from SSB
+
+PMB 28/06/2017
+
+********************************************/
+
+
+
+
+
 ## library picked from internett
 # this URL: https://json-stat.org/tools/php
 
