@@ -8,6 +8,7 @@
 <thead>
         <tr>
             <th>Navn</th>
+            <th>Kommunenr</th>
             <th>Piwik id</th>
             <th>Befolkning</th>
             <th>URL</th>
@@ -21,6 +22,7 @@
 {foreach from=$libraries item=l}
    <tr>
     <td>{$l.libraryname}</td>
+    <td>{$l.external_ref}</td>
     <td>{$l.siteid}</td>
     <td>{$l.population}</td>
     <td>{$l.URL}</td>
