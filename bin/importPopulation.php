@@ -81,7 +81,12 @@ function getDimIndex( $dim , $name , $value ){
 
 	//"index" can be an object or an array
 	if( is_object( $ndx ) ){ //Object
-		return $ndx->$value;
+	    if (property_exists($ndx, $value)) {
+	    	return $ndx->$value;
+	    }
+	    else { 
+	    	 return 0;
+            }
 	}else{ //Array
 		return array_search( $value , $ndx , TRUE );
 	}
@@ -165,7 +170,7 @@ function getStat($jsonstat, $external_ref) {
 	$query = array(
 	    "Region" => $external_ref,
 	    "ContentsCode" => "Folketallet11",
-	    "Tid" => ""
+	    "Tid" => "2017K4"
 	);
 
 	//Parse: Get value from $jsonstat and $query
@@ -187,7 +192,7 @@ $allLibs = getAllLibs(1); // returns all libs in cat 1, kommuner
 foreach ($allLibs as $l) {
 	if (!empty($l['external_ref'])) {
 		$val = getStat($jsonstat, strval($l['external_ref']));
-
+echo $l['libraryname'] . " " . $val . "\n";
 		if ($val != 0) {
 			/* update population for the lib PMB 2017-06-23 */
 			$query = "UPDATE libraries SET population = " . $val . ", import_msg = 'OK' WHERE siteid = " . $l['siteid'];
