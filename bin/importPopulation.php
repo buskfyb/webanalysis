@@ -240,7 +240,7 @@ foreach ($allLibs as $l) {
 			mysqli_query($dblink, $query);
 		}
 		else {
-			$query = "UPDATE libraries SET import_msg = 'Wrong  WHERE siteid = " . $l['siteid'];
+			$query = "UPDATE libraries SET import_msg = 'NOT OK'  WHERE siteid = " . $l['siteid'];
 			mysqli_query($dblink, $query);
 		}
 	}
