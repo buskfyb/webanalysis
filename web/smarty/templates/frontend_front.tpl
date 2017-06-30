@@ -62,7 +62,7 @@ Kategori:
             <th>Besøk pr 1000 innbygger</th>
             <th>Sider pr besøk</th>
             <th>Endring i %</th>
-            <th>Nr</th>
+            <th>Knr</th>
             <th>Sammen- lign</th>
         </tr>
 </thead>
