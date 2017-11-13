@@ -36,7 +36,7 @@
 </div>
 
 <div class="container-fluid">
-<div style="float:right;"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span> <a href="http://statistikk.webloft.no​" target=_blank" class="clear">Hjelp</a></div>
+<div style="float:right;"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span> <a href="http://hjelp.norskbibliotekindeks.no/" target=_blank" class="clear">Hjelp</a></div>
 
 <div class="table-single table-responsive">
 <table id="libraryTable" class="table table-striped display">

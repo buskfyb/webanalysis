@@ -44,7 +44,7 @@ Kategori:
 
 <div class="container-fluid">
 
-<div><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span> <a href="http://statistikk.webloft.no​" target=_blank" class="clear">Hjelp</a></div>
+<div><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span> <a href="http://hjelp.norskbibliotekindeks.no/" target=_blank" class="clear">Hjelp</a></div>
 
 
 <div class="table-responsive">
