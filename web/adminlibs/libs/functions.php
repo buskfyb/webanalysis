@@ -272,10 +272,10 @@ function updateTotalLibrary() {
     global $total_id;
 
     // get total population excluding the total library 03-06-2016 PMB
-    $result = mysqli_query($dblink, "SELECT SUM(population) as totalpopulation FROM libraries where siteid != " . $total_id);
+    $result = mysqli_query($dblink, "SELECT SUM(population) as totalpopulation FROM libraries where siteid != '" . $total_id . "'");
     $population = mysqli_fetch_array($result);
 
-    mysqli_query($dblink, "UPDATE libraries SET population = " . $population[0] . " WHERE siteid = " . $total_id);
+    mysqli_query($dblink, "UPDATE libraries SET population = " . $population[0] . " WHERE siteid = '" . $total_id . "'");
 }
 
 function dbInsertLibrary($libraryname, $siteid, $population, $URL, $category, $external_ref) {
@@ -287,8 +287,8 @@ function dbInsertLibrary($libraryname, $siteid, $population, $URL, $category, $e
         echo mysqli_error($dblink);
         exit();
     }
-    mysqli_stmt_bind_param($stmt, "sddsds", $libraryname, $siteid, $population, $URL, $category, $external_ref);
-    mysqli_stmt_execute($stmt);        
+    mysqli_stmt_bind_param($stmt, "ssdsds", $libraryname, $siteid, $population, $URL, $category, $external_ref);
+    mysqli_stmt_execute($stmt);
 
     $lastid = mysqli_insert_id($dblink);
 
@@ -307,7 +307,7 @@ function dbUpdateLibrary($libraryname, $siteid, $population, $URL, $category, $e
         echo mysqli_error($dblink);
         exit();
     }
-    if (!mysqli_stmt_bind_param($stmt, "sddsdsd", $libraryname, $siteid, $population, $URL, $category, $external_ref, $id)) {echo mysqli_error($dblink);exit();};
+    if (!mysqli_stmt_bind_param($stmt, "ssdsdsd", $libraryname, $siteid, $population, $URL, $category, $external_ref, $id)) {echo mysqli_error($dblink);exit();};
     if (!mysqli_stmt_execute($stmt))  {echo mysqli_error($dblink);exit();};        
 
     // update population for the library with total traffic 03-06-2016 PMB

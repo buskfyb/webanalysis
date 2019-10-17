@@ -55,7 +55,7 @@
 
 {* Initialization for this library *}
 <script>
-var start_site_id = {$start_site_id};
+var start_site_id = '{$start_site_id}';
 var start_site_name = '{$start_site_name}';
 
 // global variables

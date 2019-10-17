@@ -32,7 +32,7 @@ function getData($period, $period_type, $year, $category) {
                 period = ? AND 
                 year = ?
                 ) AND (
-                l.category = ? OR l.siteid = " . $total_id . ")  
+                l.category = ? OR l.siteid = '" . $total_id . "')  
                 ORDER BY t.visitors DESC")) {
             echo mysqli_error($dblink);
             exit();
@@ -90,7 +90,7 @@ function getSingleData($siteid, $period_type, $year, $resulttype=MYSQLI_BOTH) {
         exit();
     }
 
-    if (!mysqli_stmt_bind_param($stmt, "sddd", $period_type, $siteid, $year, $lastperiod)) {echo mysqli_error($dblink);exit();}
+    if (!mysqli_stmt_bind_param($stmt, "ssdd", $period_type, $siteid, $year, $lastperiod)) {echo mysqli_error($dblink);exit();}
     if (!mysqli_stmt_execute($stmt)) {echo mysqli_error($dblink);exit();}        
     $result = mysqli_stmt_get_result($stmt);
 
@@ -139,7 +139,7 @@ function getDataYear($siteid, $year, $period_type, $field) {
         exit();
     }
 
-    if (!mysqli_stmt_bind_param($stmt, "sddd", $period_type, $year, $siteid, $lastperiod)) {echo mysqli_error($dblink);exit();}
+    if (!mysqli_stmt_bind_param($stmt, "sdsd", $period_type, $year, $siteid, $lastperiod)) {echo mysqli_error($dblink);exit();}
     if (!mysqli_stmt_execute($stmt)) {echo mysqli_error($dblink);exit();}
     $result = mysqli_stmt_get_result($stmt);
 
@@ -147,7 +147,6 @@ function getDataYear($siteid, $year, $period_type, $field) {
     
     // all data is fetched as a associative array 28-05-2016 PMB
     $retResult = mysqli_fetch_all($result);
-error_log(print_r($retResult, true));
     return $retResult;    
 }
 

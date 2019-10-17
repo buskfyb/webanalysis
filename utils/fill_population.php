@@ -6,7 +6,7 @@ require_once('../config/config.php');
 function getAllLibs() {
     global $dblink;
     global $total_id; // the id that is used for the total traffic for all sites
-    if (!$result = mysqli_query($dblink, "SELECT id, libraryname, siteid, population FROM libraries WHERE siteid != 0 ")) {echo mysqli_error($dblink);exit();}    
+    if (!$result = mysqli_query($dblink, "SELECT id, libraryname, siteid, population FROM libraries WHERE siteid != '0' ")) {echo mysqli_error($dblink);exit();}    
     $retArray = mysqli_fetch_all($result);
 
     return $retArray;    
@@ -21,7 +21,7 @@ foreach ($allLibs as $lib) {
 
         $sql = "UPDATE traffic SET population = ? WHERE siteid = ?";
         $stmt = mysqli_prepare($dblink, $sql);
-        mysqli_stmt_bind_param($stmt, "dd", $population, $siteid);
+        mysqli_stmt_bind_param($stmt, "ds", $population, $siteid);
         $res = mysqli_stmt_execute($stmt);
         echo $siteid . " " . $population . " " . $res . "\n";
 }

@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS `libraries`;
 CREATE TABLE IF NOT EXISTS `libraries` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `libraryname` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `siteid` int(11) NOT NULL,
+  `siteid` varchar(255) NOT NULL,
   `population` int(11) DEFAULT NULL,
   `URL` varchar(512) COLLATE utf8_unicode_ci DEFAULT '',
   PRIMARY KEY (`id`),
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `libraries` (
 DROP TABLE IF EXISTS `traffic`;
 CREATE TABLE IF NOT EXISTS `traffic` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `siteid` int(11) NOT NULL,
+  `siteid` varchar(255) NOT NULL,
   `period_type` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `period` int(11) NOT NULL,
   `year` int(11) NOT NULL,

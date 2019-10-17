@@ -18,10 +18,10 @@ function validateForm() {
         $('#libraryname_error').html("");
     }
 
-    if (!isItInt($('#siteid').val())) {
-        $('#siteid_error').html("Må være tall.");
-        formOK = false;
-    } else {
+    if ($('#siteid').val() == "") {
+        $('#siteid_error').html("Må legge inn site id.");
+        formOK = false;        
+    }  else {
         $('#siteid_error').html("");
     }
 

@@ -7,7 +7,7 @@ require_once(dirname(__FILE__) . '/../config/config.php');
 function recordExists($siteid, $period, $year, $period_type) {
     global $dblink;
     if (!$stmt = mysqli_prepare($dblink, "SELECT id FROM traffic WHERE siteid = ? AND period = ? AND year = ? AND period_type = ?")) {echo mysqli_error($dblink);exit();}    
-    if (!mysqli_stmt_bind_param($stmt, "ddds", $siteid, $period, $year, $period_type)) {echo mysqli_error($dblink);exit();}
+    if (!mysqli_stmt_bind_param($stmt, "sdds", $siteid, $period, $year, $period_type)) {echo mysqli_error($dblink);exit();}
     if (!mysqli_stmt_execute($stmt)) {echo mysqli_error($dblink);exit();}        
     if (!mysqli_stmt_bind_result($stmt, $id)) {echo mysqli_error($dblink);exit();} 
     mysqli_stmt_fetch($stmt);
@@ -26,7 +26,7 @@ function insertData($pData, $siteid, $period, $period_type, $year) {
         echo mysqli_error($dblink);
         exit();
     }
-    if (!mysqli_stmt_bind_param($stmt, "ddddddddsdd", $siteid, $period, $year, $pData['nb_uniq_visitors'], $pData['nb_actions'],
+    if (!mysqli_stmt_bind_param($stmt, "sdddddddsdd", $siteid, $period, $year, $pData['nb_uniq_visitors'], $pData['nb_actions'],
         $pData['avg_time_on_site'], $pData['bounce_rate'], $pData['nb_visits'], $period_type, $pData['change_percent'], $pData['population'])) {
             echo mysqli_error($dblink);
             exit();
@@ -167,7 +167,7 @@ function doForLib($siteid, $population, $thedate, $period_type) {
 
         // check if record exists, if so do an update 30-05-2016 PMB
         if ($id = recordExists($siteid, $period, $year, $period_type)) {    
-           echo "Finnes: " . $id . "\n";
+           echo "Finnes her: " . $id . "\n";
            updateData($id, $pData);
         }
         // if the record does not exist, we do an insert 30-05-2016 PMB
@@ -191,8 +191,8 @@ function updateTotalTraffic($thedate, $period_type) {
     // get total data for the period
     if (!$stmt = mysqli_prepare($dblink, "SELECT SUM(visitors) as totalvisitors, SUM(pageviews) as totalpageviews, 
     SUM(visits) as totalvisits, CAST(AVG(visit_time) AS UNSIGNED) as total_visit_time, CAST(AVG(bounce_rate) AS UNSIGNED)
-    as total_bonuce_rate, SUM(population) FROM `traffic` WHERE year = ? AND period = ? AND period_type = ? AND  siteid != ?")) {echo mysqli_error($dblink);exit();}    
-    if (!mysqli_stmt_bind_param($stmt, "ddsd", $year, $period, $period_type, $total_id)) {echo mysqli_error($dblink);exit();}
+    as total_bonuce_rate, SUM(population) FROM `traffic` WHERE year = ? AND period = ? AND period_type = ? AND  siteid != ?")) {echo mysqli_error($dblink);exit();}
+    if (!mysqli_stmt_bind_param($stmt, "ddss", $year, $period, $period_type, $total_id)) {echo mysqli_error($dblink);exit();}
     if (!mysqli_stmt_execute($stmt)) {echo mysqli_error($dblink);exit();}        
     if (!mysqli_stmt_bind_result($stmt, $totalvisitors, $totalpageviews, $totalvisits, $total_visit_time, $total_bounce_rate, $total_population)) {echo mysqli_error($dblink);exit();} 
     mysqli_stmt_fetch($stmt);   
@@ -260,10 +260,10 @@ function getVisits($siteid, $year, $period, $period_type) {
     }
 
     if (!$stmt = mysqli_prepare($dblink, "SELECT visits FROM `traffic` WHERE siteid = ? AND year = ? AND period = ? AND period_type = ?")) {echo mysqli_error($dblink);exit();}    
-    if (!mysqli_stmt_bind_param($stmt, "ddds", $siteid, $year, $period, $period_type)) {echo mysqli_error($dblink);exit();}
+    if (!mysqli_stmt_bind_param($stmt, "sdds", $siteid, $year, $period, $period_type)) {echo mysqli_error($dblink);exit();}
     if (!mysqli_stmt_execute($stmt)) {echo mysqli_error($dblink);exit();}        
     if (!mysqli_stmt_bind_result($stmt, $visitors)) {echo mysqli_error($dblink);exit();} 
-    mysqli_stmt_fetch($stmt);   
+    mysqli_stmt_fetch($stmt);
 
     // closing the stmt to free up resources 01-07-2016 PMB
     mysqli_stmt_close($stmt);
