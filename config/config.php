@@ -10,6 +10,8 @@ require_once('config_vars.php');
 // smarty template engine is included. Be sure the location of this file is in 
 // the include path in your php.ini, or set include path locally
 // 28-05-2016 PMB
+set_include_path('/usr/local/lib/php/smarty-3.1.29/libs/');
+
 require_once('Smarty.class.php');
 
 

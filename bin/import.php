@@ -36,7 +36,7 @@ function insertData($pData, $siteid, $period, $period_type, $year) {
         print_r($pData);
         echo $siteid;
          echo mysqli_error($dblink);
-         exit();
+//         exit();
     }
     $lastid = mysqli_insert_id($dblink);
     return $lastid;
@@ -97,7 +97,8 @@ function getData($siteid,$today,$period_type) {
     if($errno = curl_errno($ch)) {
         $error_message = curl_strerror($errno);
         echo "cURL error ({$errno}):\n {$error_message}";
-        exit();
+	return false; 
+   //    exit();
     }
 
     // close the curl connection 01-05-2017 PMB
@@ -110,9 +111,8 @@ function getData($siteid,$today,$period_type) {
 function getAllLibs() {
     global $dblink;
     global $total_id; // the id that is used for the total traffic for all sites
-    if (!$result = mysqli_query($dblink, "SELECT id, libraryname, siteid, population FROM libraries WHERE siteid != 0 AND id != " . $total_id)) {echo mysqli_error($dblink);exit();}    
+    if (!$result = mysqli_query($dblink, "SELECT id, libraryname, siteid, population FROM libraries WHERE siteid != '0' AND id != " . $total_id)) {echo mysqli_error($dblink);exit();}    
     $retArray = mysqli_fetch_all($result);
-
     return $retArray;    
 }
 
@@ -146,6 +146,12 @@ function doForLib($siteid, $population, $thedate, $period_type) {
 
         // get the data from piwik 30-05-2016 PMB
         $retData = getData($siteid, $thedate, $period_type);
+
+	// if retData is false, then just return PMB 2019-12-19
+	if ($retData == false) {
+	   return;
+	}
+
         $pData = json_decode($retData, true);
 
         // get visits for last period to calculate change
@@ -305,7 +311,7 @@ else {
     elseif ($argv[1] == 'all') {  // we are to import all data from startdate 01-06-2016 PMB
         // date from when we want to import data
         // default to january first 2016. Change to your liking 01-06-2016 PMB
-        $current = date_create('2016-01-01');
+        $current = date_create('2019-09-01');
         $enddate = date_create();
 
         while ($current < $enddate) {
