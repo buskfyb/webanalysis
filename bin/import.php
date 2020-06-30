@@ -327,7 +327,7 @@ function doForLib($siteid, $population, $thedate, $period_type) {
 
         $tmpData = json_decode($retData, true);
 
-        echo $siteid . "\n";
+//        echo $siteid . "\n";
 
         $pData = array(
             "nb_visits" => $tmpData['data'][0][4],
