@@ -4,11 +4,13 @@
 
 date_default_timezone_set('Europe/Oslo'); 
 
+
 // URL to the piwik instance 28-05-2016 PMB
 $piwikURL = '';
 
-// auth token for logging into Piwik 28-05-2016 PMB
-$piwikAuth = '';
+// client id and secret for logging into Piwik 2020-06-30 PMB
+$client_id = '';
+$client_secret = '';
 
 // connecting to the db, using mysqli 28-05-2016 PMB
 $host = ''; // hostname of db server 28-05-2016 PMB
@@ -25,5 +27,8 @@ $total_id = '100000'; // siteid used in database to hold total data for all libr
 $startYear = 2016; // year when it all started. used to display select-box in frontend
 
 $development = 0; // if set to 1, a message will show on all frontend and backend screens PMB 2017-05-05
+
+// set as true to enable debug printing PMB 2020-06-30
+define("DEBUG", false);
 
 ?>
