@@ -7,7 +7,7 @@
 
 <div class="velg-aar" style="margin-top: 1rem;">
 <span class="glyphicon glyphicon-stats" aria-hidden="true"></span> <strong>Velg år:</strong>
-<select name="year" id="year" onchange="changeYearSingle({$start_site_id}, '{$start_site_name}')">
+<select name="year" id="year" onchange="changeYearSingle('{$start_site_id}', '{$start_site_name}')">
 {section name=year start=$startYear loop=$thisYear+1 step=1}
  <option value="{$smarty.section.year.index}" {if $smarty.section.year.index == $currentYear}SELECTED{/if}>{$smarty.section.year.index}</option>
 {/section}
